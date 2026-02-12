@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Be My Valentine ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .page {
+      display: none;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h1 {
+      color: #e63946;
+    }
+
+    p {
+      color: #444;
+      font-size: 18px;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 18px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .primary {
+      background: #e63946;
+      color: white;
+    }
+
+    .buttons {
+      position: relative;
+      height: 80px;
+      margin: 25px 0;
+    }
+
+    #noBtn {
+      position: absolute;
+      background: #ccc;
+    }
+
+    #yesBtn {
+      position: relative;
+    }
+
+    .gallery {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 110px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop>
+  <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="yesSound">
+  <source src="yes-sound.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>Are you ready? 😍</h1>
+  <p>I have something special to show you ❤️</p>
+  <button class="primary" onclick="goToPage(3)">Continue 💕</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page3" onclick="startMusic()">
+  <h1>Dear Owami ❤️</h1>
+  <p>
+    From the moment you came into my life, everything became brighter.
+    Will you make our Valentine’s Day special and be my Valentine? 💕
+  </p>
+
+  <div class="buttons">
+    <button id="yesBtn" class="primary" onclick="handleYes()">Yes 💖</button>
+    <button id="noBtn">No 😜</button>
+  </div>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const bgMusic = document.getElementById("bgMusic");
+  const yesSound = document.getElementById("yesSound");
+
+  let yesMoved = false;
+
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 260;
+    const y = Math.random() * 50;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  yesBtn.addEventListener("mouseover", () => {
+    if (!yesMoved) {
+      const x = Math.random() * 120;
+      yesBtn.style.transform = `translate(${x}px, -10px)`;
+      yesMoved = true;
+    }
+  });
+
+  function goToPage(pageNumber) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(`page${pageNumber}`).classList.add('active');
+  }
+
+  function startMusic() {
+    if (bgMusic.paused) {
+      bgMusic.volume = 0.4;
+      bgMusic.play();
+    }
+  }
+
+  function handleYes() {
+    yesSound.play();
+    document.body.innerHTML = `
+      <div style="
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+        font-family:'Segoe UI',sans-serif;
+        text-align:center;
+      ">
+        <h1 style="color:#e63946;">
+          YAY!!! 💖💖💖<br><br>
+          I CANT WAIT TO SEE YOU!!!!
+          You just made me the happiest person ever 😍
+          I LOVE YOU FOREVER!!!!!!!!!
+        </h1>
+      </div>
+    `;
+  }
+</script>
+
+</body>
+</html>
